@@ -2,6 +2,8 @@
 
 This is a test Readme Markdown file for creating a git commit.
 
+Nihao :)
+
 ```solidity
 // Red
 
