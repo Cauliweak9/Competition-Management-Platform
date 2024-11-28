@@ -2,7 +2,11 @@
 
 This is a test Readme Markdown file for creating a git commit.
 
+<<<<<<< HEAD
 This is the dev branch before.
+=======
+Nihao :)
+>>>>>>> 017c90557c77c0f174beb6102bd9b0e315791d90
 
 ```solidity
 // Red
