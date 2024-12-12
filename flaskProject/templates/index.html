@@ -3,10 +3,24 @@
     <title>My Website</title>
   </head>
   <body>
-  <div> {{ mytime|dformat }} </div>
+  <div>  </div>
     <h1>Welcome to my website!</h1>
-    <h2>my name is {{ person.name }} , my email is {{ person.email }}</h2>
     <p>This is a paragraph about me.</p>
+    <form action="/" method="post">
+        <label for="inputText">需要修改的编号：</label>
+        <input type="text" id="inputText" name="inputText">
+        <input type="submit" value="66">
+    </form>
+    <form action="/" method="post">
+        <label for="inputText">需要修改的编号：</label>
+        <input type="text" id="inputText" name="inputText">
+        <input type="submit" value="66">
+    </form>
+    <h2>数据库返回的内容：</h2>
+    </tr>
+        {% for item in result %}
+        <h2>{{ item.empno }} , {{ item.ename }}</h2>
+        {% endfor %}
   </body>
 </html>
 

@@ -1,0 +1,7 @@
+.fixed-top {
+    position: fixed; /* 使用fixed定位 */
+    top: 0; /* 顶部对齐 */
+    left: 0; /* 左侧对齐 */
+    width: 100%; /* 宽度占满整个视口 */
+    z-index: 1000; /* 确保在顶部，不被其他内容覆盖 */
+}
