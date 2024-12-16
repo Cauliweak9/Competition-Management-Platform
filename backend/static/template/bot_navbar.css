@@ -1,0 +1,7 @@
+.fixed-bot-navbar {
+    position: fixed; /* 固定定位 */
+    bottom: 0; /* 底部对齐 */
+    left: 0; /* 左侧对齐 */
+    width: 100%; /* 宽度占满整个视口 */
+    z-index: 1000; /* 确保在最顶层 */
+}

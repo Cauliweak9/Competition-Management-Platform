@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT 用户中心</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .numbers {
+            margin: 20px 0;
+        }
+        .numbers span {
+            color: red;
+            margin: 0 10px;
+        }
+        .chat-icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('chat-icon.png'); /* 需要替换为实际的聊天图标URL */
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .message-error {
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">ChatGPT 4 mini</div>
+        <div class="numbers">
+            <!-- 这里可以动态生成数字 -->
+        </div>
+        <div class="chat-icon" aria-label="开始聊天"></div> <!-- 聊天图标 -->
+        <div class="message-error">
+            无法上传"image.png"
+        </div>
+    </div>
+
+    <script>
+        // 动态生成数字
+        const numbersContainer = document.querySelector('.numbers');
+        for (let i = 0; i <= 9; i++) {
+            const span = document.createElement('span');
+            span.textContent = `${i}x`;
+            numbersContainer.appendChild(span);
+        }
+
+        // 添加聊天图标点击事件
+        document.querySelector('.chat-icon').addEventListener('click', function() {
+            alert("开始聊天！");
+        });
+
+        // 示例：动态修改错误消息
+        // setTimeout(() => {
+        //     document.querySelector('.message-error').textContent = "无法上传指定的图片，请重试！";
+        // }, 3000);
+    </script>
+</body>
+</html>

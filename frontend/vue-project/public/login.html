@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="static/js/vue2.js"></script>
+    <script src="static/js/axios.min.js"></script>
+    <link rel="stylesheet" href="static/template/top_navigation_bar.css">
+    <link rel="stylesheet" href="static/css/login.css">
+    <link rel="stylesheet" href="static/template/bot_navbar.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <iframe class="fixed-top" src="static/template/top_navigation_bar.html" width="100%" height="62px" style="border: none;"></iframe>
+    <br>
+    <div class="login-container" id="app">
+        <div class="login-title">
+            <img src="static/images/shark.png" alt="" id="logo">
+            <span v-show="!islogged">登录到本科生竞赛交流平台</span>
+            <span v-show="islogged" v-text="'欢迎回来，' + info.id"></span>
+            <button id="back_to_index" v-show="islogged" @click="goHome">返回首页</button>
+        </div>
+        <form @submit.prevent="loginform" v-show="!islogged">
+            <div class="form-group">
+                <label for="email" v-if="email">请输入邮箱</label>
+                <input type="email" id="email" v-model="info.email" @focus="onfocus('email')" @blur="onblur('email')">
+            </div>
+            <div class="form-group">
+                <label for="password" v-if="password">请输入密码</label>
+                <input type="password" id="password" v-model="info.password" @focus="onfocus('password')" @blur="onblur('password')">
+            </div>
+            <button type="submit" class="btn-login">登录</button>
+        </form>
+        <div class="links" v-show="!islogged">
+            <p id="signin">用户注册</p>
+            <p id="forget_password">忘记密码</p>
+        </div>
+    </div>
+    <footer>
+        <!-- 底部导航栏 -->
+        <iframe class="fixed-bot-navbar" src="static/template/bot_navbar.html" width="100%" height="250px" style="border: none;"></iframe>
+    </footer>
+
+<script>
+  var app = new Vue({
+      el: '#app',
+      data: {
+          email: true,
+          password: true,
+          islogged: false,
+          info: {
+              email: '',
+              password: '',
+              id: ''
+          },
+      },
+      methods: {
+          // 聚焦事件
+          onfocus(id) {
+              if (id === "email") {
+                  this.email = false;
+              } else if (id === "password") {
+                  this.password = false;
+              }
+          },
+          // 失焦事件
+          onblur(id) {
+              if (id === "email") {
+                  this.email = this.info.email === "";
+              } else if (id === "password") {
+                  this.password = this.info.password === "";
+              }
+          },
+          // 登录表单提交
+          loginform() {
+              const that = this;
+              const datadict = this.info;
+              axios.post('/login', {
+                  email: datadict.email,
+                  password: datadict.password
+              }).then(res => {
+                  if (res.data.code === 1) {
+                      that.islogged = true;
+                      that.info = { ...res.data.data }; // 更新用户信息
+                      localStorage.setItem('token', res.data.access_token); // 存储 Token
+                      localStorage.setItem('user', JSON.stringify(res.data.data)); // 存储用户信息
+                      alert("登录成功！");
+                  } else {
+                      alert("用户名或密码错误");
+                      that.info.password = '';
+                  }
+              }).catch(err => {
+                  alert("登录失败，请稍后再试！");
+                  console.error(err);
+                  that.info.password = '';
+              });
+          },
+          // 返回首页
+          goHome() {
+              window.location.href = '/';
+          },
+          // 检查是否已登录
+          checkLogin() {
+              const token = localStorage.getItem('token');
+              const user = localStorage.getItem('user');
+              if (token && user) {
+                  this.islogged = true;
+                  this.info = JSON.parse(user);
+              }
+          }
+      },
+      mounted() {
+          this.checkLogin(); // 页面加载时检查登录状态
+      }
+  });
+</script>
+</body>
+</html>
